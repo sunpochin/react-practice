@@ -17,7 +17,6 @@ class App extends Component {
           <BurgerBuilder />
           <p> Test </p>
         </Layout>
-
       </div>
     )
   }
