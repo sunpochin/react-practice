@@ -1,48 +1,31 @@
 import React from 'react';
+
 import classes from './BuildControls.css';
-import CtrlEle from './CtrlEle/CtrlEle';
+import BuildControl from './BuildControl/BuildControl';
 
 const controls = [
     { label: 'Salad', type: 'salad' },
     { label: 'Bacon', type: 'bacon' },
     { label: 'Cheese', type: 'cheese' },
     { label: 'Meat', type: 'meat' },
-
 ];
 
-
-const BuildControls = (props) => {
-    return (
-        <div className={classes.BuildControls} >
-            Current Price: {props.price}
+const buildControls = (props) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
         {controls.map(ctrl => (
-            <CtrlEle 
-                key = {ctrl.label} 
-                label = {ctrl.label}
-                added = {() => props.ingredientAdded(ctrl.type) }
-                deduced = {() => props.ingredientDeduced(ctrl.type) }
-                disabled = {props.disabled[ctrl.type]}
-            >
-            </CtrlEle>
+            <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                added={() => props.ingredientAdded(ctrl.type)}
+                removed={() => props.ingredientRemoved(ctrl.type)}
+                disabled={props.disabled[ctrl.type]} />
         ))}
-        <button className={classes.OrderButton}
-            disabled={!props.purchaseable}>ORDER NOW</button>
-        </div>
-    );
-};
+        <button 
+            className={classes.OrderButton}
+            disabled={!props.purchasable}
+            onClick={props.ordered}>ORDER NOW</button>
+    </div>
+);
 
-// const BuildControls = (props) => {
-
-//     <div className={classes.BuildControls} >
-//             BuildControls
-//     ssss
-//         {/* {controls.map(ctrl => (
-//             <CtrlEle key={ctrl.label} label = {ctrl.label}  ></CtrlEle>
-//         ))} */}
-
-//     </div>
-// };
-
-
-export default BuildControls;
-
+export default buildControls;
